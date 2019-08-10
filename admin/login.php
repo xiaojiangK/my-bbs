@@ -1,9 +1,12 @@
 <?php
     include_once "../inc/config.inc.php";
     include_once "../inc/skip.inc.php";
-    $link = connect();
-
+	$link = connect();
 	include_once "inc/is_login.inc.php";
+
+    if (is_login($link)) {
+        skip('你已经登录，请勿重复登录！', 'error', 'index.php');
+    }
 
     if (isset($_POST['submit'])) {
         // 转义入库
@@ -23,10 +26,10 @@
         $query = "select * from bbs_manage where name='{$name}' and pass=md5('{$pass}')";
         $result = query_sql($link, $query);
         if (mysqli_num_rows($result)) {
-            $data = mysqli_fetch_assoc($result);
+			$data = mysqli_fetch_assoc($result);
+            $_SESSION['manage']['id'] = $data['id'];
             $_SESSION['manage']['name'] = $data['name'];
             $_SESSION['manage']['pass'] = $data['pass'];
-            $_SESSION['manage']['id'] = $data['id'];
             $_SESSION['manage']['level'] = $data['level'];
             skip('登录成功！', 'ok', 'index.php');
         } else {

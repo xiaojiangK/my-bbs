@@ -156,8 +156,10 @@ table.list tr td {
 	text-align:left;
 }
 table.au input {
-	width:300px;
-	height:25px;
+	width: 300px;
+    height: 35px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 table.au textarea {
 	width:300px;

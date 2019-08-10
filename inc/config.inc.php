@@ -80,7 +80,7 @@
 
     // 获取记录数
     function query_num($link, $query) {
-        $result = query($link, $query);
+        $result = query_sql($link, $query);
         $count = mysqli_fetch_row($result);
         return $count[0];
     }
