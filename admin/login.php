@@ -2,9 +2,8 @@
     include_once "../inc/config.inc.php";
     include_once "../inc/skip.inc.php";
 	$link = connect();
-	include_once "inc/is_login.inc.php";
 
-    if (is_login($link)) {
+    if (is_manage_login($link)) {
         skip('你已经登录，请勿重复登录！', 'error', 'index.php');
     }
 

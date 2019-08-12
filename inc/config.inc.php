@@ -6,6 +6,10 @@
     define('PASS', 'root');
     define('DATABASE', 'mybbs');
     define('PORT', 3306);
+    // 我们的项目（程序），在服务器上的绝对路径
+    define('ROOT_PATH', dirname(dirname(__FILE__)));
+    //我们的项目在web根目录下面的位置（哪个目录里面）
+    define('SUB_URL',str_replace($_SERVER['DOCUMENT_ROOT'],'',str_replace('\\','/',ROOT_PATH)).'/');
 
     // 数据库连接
     function connect($host=HOST, $user=USER, $pass=PASS, $database=DATABASE, $port=PORT) {
@@ -48,10 +52,10 @@
         'select * from sfk_father_module',
         'select * from sfk_father_module'
     );
-    var_dump(execute_multi($link, $arr_sqls, $error));
+    var_dump(query_multi($link, $arr_sqls, $error));
     echo $error;
     */
-    function execute_multi($link,$arr_sqls,&$error){
+    function query_multi($link,$arr_sqls,&$error){
         $sqls=implode(';',$arr_sqls).';';
         if(mysqli_multi_query($link,$sqls)){
             $data=array();

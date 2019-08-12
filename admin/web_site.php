@@ -2,8 +2,8 @@
     include_once "../inc/config.inc.php";
     include_once "../inc/skip.inc.php";
     $link = connect();
+	include_once "./inc/tools.inc.php";
 
-    
     $quert = "select * from web_site where id=1";
     $result = query_sql($link, $quert);
     $data = mysqli_fetch_assoc($result);
@@ -30,8 +30,7 @@
             skip('修改失败','error','web_site.php');
         }
     }
-?>
-<?php
+
     $template['title']='站点设置';
     $template['css']=array('style/public.css');
     include_once "./inc/header.inc.php";

@@ -2,11 +2,7 @@
 	include_once "../inc/config.inc.php";
     include_once "../inc/skip.inc.php";
 	$link = connect();
-	include_once "./inc/is_login.inc.php";
-	
-	if (!is_login($link)) {
-        skip('你还没登录，请登录！', 'error', 'login.php');
-	}
+	include_once "./inc/tools.inc.php";
 
     $template['title']='管理员列表';
     $template['css']=array('style/public.css');
@@ -19,6 +15,7 @@
 			<th>名称</th>
 			<th>等级</th>
 			<th>创建日期</th>
+			<th>修改日期</th>
 			<th>操作</th>
 		</tr>
 		<?php
@@ -30,12 +27,17 @@
 				} else if ($data['level'] == 1) {
 					$data['level'] = '普通会员';
 				}
+				$url=urlencode("manage_delete.php?id={$data['id']}");
+				$return_url=urlencode($_SERVER['REQUEST_URI']);
+				$message="你真的要删除  {$data['name']} 吗？";
+				$delete_url="confirm.php?url={$url}&return_url={$return_url}&message={$message}";
 $html = <<<html
 				<tr>
 					<td>{$data['name']}[id:{$data['id']}]</td>
 					<td>{$data['level']}</td>
 					<td>{$data['create_time']}</td>
-					<td><a href="manage_update.php?id={$data['id']}">[编辑]</a>&nbsp;&nbsp;<a href="#">[删除]</a></td>
+					<td>{$data['last_time']}</td>
+					<td><a href="manage_update.php?id={$data['id']}">[编辑]</a>&nbsp;&nbsp;<a href="{$delete_url}">[删除]</a></td>
 				</tr>
 html;
 				echo $html;

@@ -1,7 +1,12 @@
 <?php
-    $template['title']='帖子列表';
+	include_once "../inc/config.inc.php";
+    include_once "../inc/skip.inc.php";
+	$link = connect();
+	include_once "./inc/tools.inc.php";
+	
+	$template['title']='帖子列表';
     $template['css']=array('style/public.css');
-    include_once "./inc/header.inc.php";
+	include_once "./inc/header.inc.php";
 ?>
 <div id="main">
     <div class="title">帖子列表</div>
